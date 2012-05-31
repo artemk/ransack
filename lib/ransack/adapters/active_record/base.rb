@@ -4,7 +4,9 @@ module Ransack
       module Base
 
         def self.extended(base)
-          alias :search :ransack unless base.method_defined? :search
+          # Note, this can't be changed in runtime
+          search_meth = Ransack.options[:search_meth]
+          eval("alias :#{search_meth} :ransack unless base.method_defined? :#{search_meth}")
           base.class_eval do
             class_attribute :_ransackers
             self._ransackers ||= {}

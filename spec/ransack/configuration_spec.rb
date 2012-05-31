@@ -45,6 +45,20 @@ module Ransack
       # restore original state so we don't break other tests
       Ransack.options = before
     end
+    
+    it 'changes default search key parameter' do
+      # store original state so we can restore it later
+      before = Ransack.options.clone
+
+      Ransack.configure do |config|
+        config.search_meth = :custom_search
+      end
+
+      Ransack.options[:search_meth].should eq :custom_search
+
+      # restore original state so we don't break other tests
+      Ransack.options = before
+    end
 
     it 'adds predicates that take arrays, overriding compounds' do
       Ransack.configure do |config|

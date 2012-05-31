@@ -7,7 +7,8 @@ module Ransack
     mattr_accessor :predicates, :options
     self.predicates = {}
     self.options = {
-        :search_key => :q
+        :search_key => :q,
+        :search_meth => :search
     }
 
     def configure
@@ -38,6 +39,10 @@ module Ransack
     # default search_key that, it can be overridden on sort_link level
     def search_key=(name)
       self.options[:search_key] = name
+    end
+
+    def search_meth=(name)
+      self.options[:search_meth] = name
     end
 
   end
